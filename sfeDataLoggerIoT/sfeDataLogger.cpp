@@ -37,6 +37,9 @@ static const uint8_t kAppOnBoardIMUCS = 5;
 // The onboard Magnetometer
 static const uint8_t kAppOnBoardMAGCS = 27;
 
+// External MAX31865 RTD amplifier
+static const uint8_t kAppExternalRTDCS = 33;
+
 RTC_DATA_ATTR int boot_count = 0;
 
 // For finding the firmware files on SD card
@@ -438,6 +441,9 @@ void sfeDataLogger::onDeviceLoad()
         // Magnetometer
         if (_onboardMag.initialize(kAppOnBoardMAGCS))
             _modeFlags |= DL_MODE_FLAG_MAG;
+
+        // External MAX31865 RTD temperature sensor
+        _externalRTD.initialize(kAppExternalRTDCS);
 
         // If this wasn't a known board, check if it is now?
         if (!dlModeCheckValid(_modeFlags) && dlModeCheckDevice9DOF(_modeFlags))

@@ -44,6 +44,7 @@
 // SPI Devices
 // The onboard IMU
 #include <Flux/flxDevISM330.h>
+#include <Flux/flxDevMAX31865.h>
 
 // The onboard Magnetometer
 #include <Flux/flxDevMMC5983.h>
@@ -419,6 +420,9 @@ class sfeDataLogger : public flxApplication
     // the onboard IMU
     flxDevISM330_SPI _onboardIMU;
     flxDevMMC5983_SPI _onboardMag;
+
+    // external SPI sensor — MAX31865 RTD amplifier on CS pin 33
+    flxDevMAX31865 _externalRTD;
 
     // a biometric sensor hub
     flxDevBioHub _bioHub;
