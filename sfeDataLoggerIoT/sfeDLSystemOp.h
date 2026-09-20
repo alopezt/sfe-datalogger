@@ -14,6 +14,7 @@
 #include <Flux/flxCoreLog.h>
 #include <Flux/flxCoreParam.h>
 #include <Flux/flxUtils.h>
+#include "sfeDLVersion.h"
 
 class sfeDLSystemOp : public flxOperation
 {
@@ -54,6 +55,11 @@ class sfeDLSystemOp : public flxOperation
         return ESP.getFreeHeap();
     }
 
+    uint32_t get_gurt1_firmware(void)
+    {
+        return kGURT1FirmwareVersion;
+    }
+
   public:
     sfeDLSystemOp() : _pDataLogger{nullptr}
     {
@@ -64,6 +70,7 @@ class sfeDLSystemOp : public flxOperation
         flxRegister(systemUptime, "Uptime", "System Uptime in MS");
         flxRegister(systemHeap, "Heap", "Heap free size");
         flxRegister(systemSDFree, "SD Free", "SD Card free space");
+        flxRegister(gurt1Firmware, "GURT1 FW", "GURT-1 firmware build number");
     }
 
     sfeDLSystemOp(sfeDataLogger *dlApp) : sfeDLSystemOp()
@@ -85,6 +92,8 @@ class sfeDLSystemOp : public flxOperation
     flxParameterOutUInt32<sfeDLSystemOp, &sfeDLSystemOp::get_sdfree> systemSDFree;
 
     flxParameterOutUInt32<sfeDLSystemOp, &sfeDLSystemOp::get_heap> systemHeap;
+
+    flxParameterOutUInt32<sfeDLSystemOp, &sfeDLSystemOp::get_gurt1_firmware> gurt1Firmware;
 
   private:
     sfeDataLogger *_pDataLogger;
